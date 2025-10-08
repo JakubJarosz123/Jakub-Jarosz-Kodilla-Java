@@ -19,7 +19,13 @@ public class TestingMain {
 
         Calculator calculator = new Calculator();
 
-        System.out.println(calculator.add(5, 10));
-        System.out.println(calculator.sub(15, 10));
+        int addResult = calculator.add(5, 10);
+        int subResult = calculator.sub(15, 10);
+
+        if (addResult == 15 && subResult == 5) {
+            System.out.println("Test OK\n");
+        }else {
+            System.out.println("Test FAILED\n");
+        }
     }
 }
