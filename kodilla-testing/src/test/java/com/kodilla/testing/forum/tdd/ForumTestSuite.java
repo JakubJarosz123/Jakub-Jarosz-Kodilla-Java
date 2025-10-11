@@ -3,6 +3,7 @@ package com.kodilla.testing.forum.tdd;
 import com.kodilla.testing.forum.ForumComment;
 import com.kodilla.testing.forum.ForumPost;
 import com.kodilla.testing.forum.ForumUser;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 @DisplayName("TDD: Forum Test Suite \uD83D\uDE31")
@@ -38,7 +39,7 @@ public class ForumTestSuite {
                     "Hello everyone, this is my first contribution here!");
 
             //Then
-            Assertions.assertEquals(1, forumUser.getPostsQuantity());
+            assertEquals(1, forumUser.getPostsQuantity());
         }
 
         @Test
@@ -52,7 +53,7 @@ public class ForumTestSuite {
             ForumPost retrievedPost;
             retrievedPost = forumUser.getPost(0);
             //Then
-            Assertions.assertEquals(thePost, retrievedPost);
+            assertEquals(thePost, retrievedPost);
         }
 
         @Test
@@ -64,7 +65,7 @@ public class ForumTestSuite {
             //When
             boolean result = forumUser.removePost(thePost);
             //Then
-            Assertions.assertFalse(result);
+            assertFalse(result);
         }
 
         @Test
@@ -77,8 +78,8 @@ public class ForumTestSuite {
             //When
             boolean result = forumUser.removePost(thePost);
             //Then
-            Assertions.assertTrue(result);
-            Assertions.assertEquals(0, forumUser.getPostsQuantity());
+            assertTrue(result);
+            assertEquals(0, forumUser.getPostsQuantity());
         }
     }
 
@@ -93,7 +94,7 @@ public class ForumTestSuite {
             //When
             forumUser.addComment(thePost, "mrSmith", "Thank you all for good words!");
             //Then
-            Assertions.assertEquals(1, forumUser.getCommentsQuantity());
+            assertEquals(1, forumUser.getCommentsQuantity());
         }
         @Test
         void testGetComment() {
@@ -108,7 +109,7 @@ public class ForumTestSuite {
             //When
             ForumComment retrievedComment = forumUser.getComment(0);
             //Then
-            Assertions.assertEquals(theComment, retrievedComment);
+            assertEquals(theComment, retrievedComment);
         }
         @Test
         void testRemoveCommentNotExisting() {
@@ -121,7 +122,7 @@ public class ForumTestSuite {
             //When
             boolean result = forumUser.removeComment(theComment);
             //Then
-            Assertions.assertFalse(result);
+            assertFalse(result);
         }
         @Test
         void testRemoveComment() {
@@ -136,8 +137,8 @@ public class ForumTestSuite {
             //When
             boolean result = forumUser.removeComment(theComment);
             //Then
-            Assertions.assertTrue(result);
-            Assertions.assertEquals(0, forumUser.getCommentsQuantity());
+            assertTrue(result);
+            assertEquals(0, forumUser.getCommentsQuantity());
         }
     }
 }
