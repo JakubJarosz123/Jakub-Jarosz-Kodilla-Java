@@ -25,7 +25,7 @@ public class ShapeCollectorTestSuite {
 
     @AfterEach
     void afterEach(){
-        System.out.println("Ending test.");
+        System.out.println("Ending test...");
     }
 
     @DisplayName("Test to add figure")
