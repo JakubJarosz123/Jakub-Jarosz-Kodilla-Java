@@ -18,14 +18,16 @@ public class ForumUser {                                       // [5]
         this.realName = realName;                                // [12]
     }                                                           // [13]
 
-    public void addPost(String author, String postBody) {       // [14]
+    public String addPost(String author, String postBody) {       // [14]
         ForumPost thePost = new ForumPost(postBody, author);
         posts.add(thePost);
+        return thePost.toString();
     }                                                           // [15]
 
-    public void addComment(ForumPost thePost, String author, String commentBody) {   // [16]
+    public String addComment(ForumPost thePost, String author, String commentBody) {   // [16]
         ForumComment theComment = new ForumComment(thePost, commentBody, author);
         comments.add(theComment);
+        return theComment.toString();
     }                                                           // [17]
 
     public int getPostsQuantity() {                             // [18]
