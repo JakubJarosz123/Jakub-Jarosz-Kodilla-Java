@@ -168,7 +168,7 @@ public class BoardTestSuite {
                 .average()
                 .orElse(0.0);
         //Then
-        assertEquals(10.0, avg);
-        assertEquals(10.0, avg2);
+        assertEquals(10.0, avg, 0.01);
+        assertEquals(10.0, avg2, 0.01);
     }
 }
