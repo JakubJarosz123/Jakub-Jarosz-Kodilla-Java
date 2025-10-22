@@ -41,7 +41,7 @@ public class SandStorageTestSuite {
                 .map(SandStorage::getSandBeansQuantity)
                 .reduce(BigDecimal.ZERO, (sum, curent) -> sum = sum.add(curent));
         //Then
-        BigDecimal expectedSand = new BigDecimal("211111110903703670");
+        BigDecimal expectedSand = new BigDecimal("211111110903703703670");
         assertEquals(expectedSand, totalSand);
     }
 }
