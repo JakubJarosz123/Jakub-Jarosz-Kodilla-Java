@@ -46,7 +46,7 @@ public class RpsRunner {
                     continue;
                 }
 
-                int moveInt =  Integer.parseInt(move);
+                int moveInt = Integer.parseInt(move);
 
                 Round round1 = new Round(moveInt);
                 round1.generateComputerMove();
