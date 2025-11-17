@@ -1,16 +1,18 @@
 package com.kodilla.kodillagoodpatterns.challenges;
 
-import java.awt.image.ImageProducer;
-import java.util.*;
-
 public class Application {
     public static void main(String[] args) {
-        MovieStore movieStore = new MovieStore();
+        User user = new User("Jonny Blaze");
+        Product product = new Product("Samsung Television");
 
-        String movies = movieStore.getMovies().values().stream()
-                .flatMap(List::stream)
-                .reduce("", (a, b) -> a + " ! " + b);
+        InformationService informationService = new EmailService();
+        OrderService orderService = new SimpleOrderService();
+        OrderRepository orderRepository = new SystemOrderRepository();
 
-        System.out.println(movies);
+        ProductOrderService productOrderService = new ProductOrderService(informationService, orderService, orderRepository);
+
+        OrderDto orderDto = productOrderService.process(user, product, 2);
+
+        System.out.println(orderDto.isOrdered());
     }
 }

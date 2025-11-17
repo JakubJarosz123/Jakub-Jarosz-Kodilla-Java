@@ -27,4 +27,14 @@ public class MovieStore {
 
         return booksTitlesWithTranslations;
     }
+
+    public static void main(String[] args) {
+        MovieStore movieStore = new MovieStore();
+
+        String movies = movieStore.getMovies().values().stream()
+                .flatMap(List::stream)
+                .reduce("", (a, b) -> a + " ! " + b);
+
+        System.out.println(movies);
+    }
 }
