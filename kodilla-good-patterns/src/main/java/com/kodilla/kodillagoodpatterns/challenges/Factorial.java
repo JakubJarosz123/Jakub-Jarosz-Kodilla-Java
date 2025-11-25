@@ -10,11 +10,11 @@ public class Factorial {
         return result;
     }
 
-    public static void main(String[] args) {
-        Factorial factorial = new Factorial();
-        int n = 5;
-
-        int num = factorial.calculateFactorial(n);
-        System.out.println(n + "! = " + num);
-    }
+//    public static void main(String[] args) {
+//        Factorial factorial = new Factorial();
+//        int n = 5;
+//
+//        int num = factorial.calculateFactorial(n);
+//        System.out.println(n + "! = " + num);
+//    }
 }
