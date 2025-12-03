@@ -1,0 +1,30 @@
+CREATE TABLE ISSUESLISTS
+(
+    ID SERIAL PRIMARY KEY,
+    NAME  VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE ISSUES
+(
+    ID SERIAL PRIMARY KEY,
+    ISSUESLIST_ID BIGINT UNSIGNED NOT NULL,
+    SUMMARY VARCHAR(50),
+    DESCRIPTION VARCHAR(200),
+    USER_ID_ASSIGNEDTO BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (USER_ID_ASSIGNEDTO) REFERENCES USERS(ID),
+    FOREIGN KEY (ISSUESLIST_ID) REFERENCES ISSUESLISTS(ID)
+);
+
+INSERT INTO ISSUESLISTS (NAME)
+VALUES
+    ('ToDo'),
+    ('In progress'),
+    ('Done');
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES
+    (1, 'Setup project', 'Initial project setup and repository creation', 1),
+    (1, 'Define requirements', 'Gather and define all project requirements', 2),
+    (2, 'Implement login', 'Create login functionality with validation', 1),
+    (2, 'Create database schema', 'Design the database tables and relationships', 3),
+    (3, 'Testing', 'Perform unit and integration testing', 2);
