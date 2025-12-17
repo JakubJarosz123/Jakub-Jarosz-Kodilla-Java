@@ -8,7 +8,7 @@ public final class BigMac {
     private final String bun;
     private final int burgers;
     private final String sauce;
-    private List<String> ingredients = new ArrayList<>();
+    private List<String> ingredients;
 
     public static class BigMacBuilder {
         private String bun;
