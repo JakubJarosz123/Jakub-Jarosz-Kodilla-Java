@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "TASKS_FINANCIALS")
 public class TaskFinancialDetails {
+
     private int id;
     private BigDecimal price;
     private boolean paid;
