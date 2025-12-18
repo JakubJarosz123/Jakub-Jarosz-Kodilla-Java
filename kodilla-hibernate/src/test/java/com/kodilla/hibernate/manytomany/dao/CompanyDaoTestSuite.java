@@ -3,10 +3,11 @@ package com.kodilla.hibernate.manytomany.dao;
 import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -16,6 +17,9 @@ public class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -61,5 +65,51 @@ public class CompanyDaoTestSuite {
 //        } catch (Exception e) {
             //do nothing
 //        }
+    }
+
+    @Test
+    void testNamedQueries() {
+
+        companyDao.deleteAll();
+        employeeDao.deleteAll();
+
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee heathLedger = new Employee("Heath", "Ledger");
+        Employee marySmith = new Employee("Mary", "Smith");
+
+        Company softwareMachine = new Company("Software Machine");
+        Company softwareMaesters = new Company("Software Maesters");
+        Company greyMatter = new Company("Grey Matter");
+
+        softwareMachine.getEmployees().add(johnSmith);
+        softwareMaesters.getEmployees().add(heathLedger);
+        softwareMaesters.getEmployees().add(marySmith);
+        greyMatter.getEmployees().add(heathLedger);
+
+        johnSmith.getCompanies().add(softwareMachine);
+        heathLedger.getCompanies().add(softwareMaesters);
+        heathLedger.getCompanies().add(greyMatter);
+        marySmith.getCompanies().add(softwareMaesters);
+
+        //When
+        companyDao.save(softwareMachine);
+        companyDao.save(greyMatter);
+        companyDao.save(softwareMaesters);
+        employeeDao.save(johnSmith);
+        employeeDao.save(heathLedger);
+        employeeDao.save(marySmith);
+
+        List<Employee> employees = employeeDao.retrieveEmployeeByLastname("Smith");
+        List<Company> companies = companyDao.retrieveCompanyByFirstThreeLetters("Sof");
+
+        //Then
+        assertEquals(2, employees.size());
+        assertEquals(2, companies.size());
+
+        //CleanUp
+        companyDao.deleteAll();
+        employeeDao.deleteAll();
+
     }
 }
