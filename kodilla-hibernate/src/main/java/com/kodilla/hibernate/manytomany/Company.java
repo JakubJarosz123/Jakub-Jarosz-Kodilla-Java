@@ -5,11 +5,17 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @NamedNativeQuery(
         name = "Company.retrieveCompanyByFirstThreeLetters",
         query = "SELECT * FROM companies WHERE LEFT(COMPANY_NAME,3) = :PREFIX",
         resultClass = Company.class
+)
+
+@NamedQuery(
+        name = "Company.retrieveByNameFragment",
+        query = "FROM Company WHERE name LIKE :NAME"
 )
 
 @Entity
