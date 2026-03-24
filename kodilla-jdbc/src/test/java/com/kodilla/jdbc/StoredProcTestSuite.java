@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StoredProcTestSuite {
 
@@ -32,6 +32,30 @@ public class StoredProcTestSuite {
         }
         assertEquals(0, howMany);
         resultSet.close();
+        statement.close();
+        statement2.close();
+    }
+
+    @Test
+    void testUpdateBestSellers() throws SQLException {
+        //Given
+        DbManager dbManager = DbManager.getInstance();
+        String sqlUpdate = "UPDATE BOOKS SET BESTSELLER = 0";
+        Statement statement = dbManager.getConnection().createStatement();
+        statement.executeUpdate(sqlUpdate);
+        String checkTable = "SELECT COUNT(*) AS HOW_MANY FROM BOOKS WHERE BESTSELLER = 1";
+        //When
+        Statement statement2 = dbManager.getConnection().createStatement();
+        String sqlProcedureCall = "CALL UpdateBestSellers()";
+        statement2.execute(sqlProcedureCall);
+        ResultSet rs = statement.executeQuery(checkTable);
+        //Then
+        int howMany = 0;
+        if (rs.next()) {
+            howMany = rs.getInt("HOW_MANY");
+        }
+        assertTrue(howMany > 0);
+        rs.close();
         statement.close();
         statement2.close();
     }
