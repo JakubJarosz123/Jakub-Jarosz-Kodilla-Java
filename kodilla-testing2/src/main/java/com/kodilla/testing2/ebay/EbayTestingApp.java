@@ -8,13 +8,16 @@ import org.openqa.selenium.WebElement;
 public class EbayTestingApp {
 
     public static final String SEARCHFIELD = "_nkw";
+    public static final String SEARCHKEYS = "Laptop";
 
     public static void main(String[] args) {
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
         driver.get("https://www.ebay.com");
 
         WebElement searchField = driver.findElement(By.name(SEARCHFIELD));
-        searchField.sendKeys("Laptop");
+        searchField.sendKeys(SEARCHKEYS);
         searchField.submit();
+
+        driver.quit();
     }
 }
