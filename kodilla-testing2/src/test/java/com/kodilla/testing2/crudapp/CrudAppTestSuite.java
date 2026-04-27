@@ -123,10 +123,41 @@ public class CrudAppTestSuite {
         return result;
     }
 
+    private boolean deleteTaskInCrudApp(String taskName) throws InterruptedException {
+        driver.navigate().refresh();
+
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@class='datatable_row']")));
+
+        driver.findElements(By.xpath("//form[@class='datatable_row']")).stream()
+                .filter(anyForm ->
+                        anyForm.findElement(By.xpath(".//p[@class='datatable_field-value']"))
+                                .getText().equals(taskName))
+                .forEach(theForm -> {
+                    WebElement deleteButton = theForm.findElement(
+                            By.xpath(".//*[@data-task-delete-button]")
+                    );
+                    deleteButton.click();
+                });
+
+        Thread.sleep(2000);
+
+        driver.navigate().refresh();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//section")));
+
+        boolean result = driver.findElements(By.xpath("//form[@class='datatable_row']")).stream()
+                .noneMatch(anyForm ->
+                        anyForm.findElement(By.xpath(".//p[@class='datatable_field-value']"))
+                                .getText().equals(taskName));
+
+        return result;
+    }
+
     @Test
     public void shouldCreateTrelloCard() throws InterruptedException {
         String taskName = createCrudAppTestTask();
         sendTestTaskToTrello(taskName);
         assertTrue(checkTaskExistsInTrello(taskName));
+        assertTrue(deleteTaskInCrudApp(taskName));
     }
 }
